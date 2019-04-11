@@ -1,6 +1,7 @@
 class Api::V1::SongsController < ApplicationController
   def create
     @song = Song.create(song_params)
+    render json: @song
   end
 
   private

@@ -1,6 +1,7 @@
 class Api::V1::GameLogsController < ApplicationController
   def create
     @game_log = GameLog.find(params[:id])
+    render json: @game_log
   end
 
   private

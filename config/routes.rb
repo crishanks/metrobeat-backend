@@ -14,16 +14,16 @@ Rails.application.routes.draw do
       resources :users
     end
   end
+  # OAuth
+  namespace :api do
+    namespace :v1 do
+      get '/login', to: "auth#spotify_request"
+      get '/auth', to: "auth#show"
+    end
+  end
 
   #Resources
-  resources :users, except: [:show]
-  resources :songs, only: [:create]
-  resources :game_logs, only: [:create]
-
-  # Sessions
-  root 'application#home'
-  get '/login' => 'sessions#new'
-  post '/login' => 'sessions#create'
-  post '/logout' => 'sessions#destroy'
-
+  resources :users
+  resources :songs
+  resources :game_logs
 end
