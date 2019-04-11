@@ -1,3 +1,29 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      resources :songs
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      resources :game_logs
+    end
+  end
+  namespace :api do
+    namespace :v1 do
+      resources :users
+    end
+  end
+
+  #Resources
+  resources :users, except: [:show]
+  resources :songs, only: [:create]
+  resources :game_logs, only: [:create]
+
+  # Sessions
+  root 'application#home'
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  post '/logout' => 'sessions#destroy'
+
 end
