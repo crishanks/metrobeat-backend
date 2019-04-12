@@ -38,6 +38,16 @@ class Api::V1::UsersController < ApplicationController
     #Update the user if they have image or country
     @user.update(image: image, country: country)
 
+    #Update the user access/refresh_tokens
+    if @user.access_token_expired?
+      @user.refresh_access_token
+    else
+      @user.update(
+        access_token: auth_params["access_token"], 
+        refresh_token: auth_params["refresh_token"]
+      )
+    end
+
     #Redirect to Front End app homepage
     redirect_to "http://localhost:3001/"
   end
@@ -54,6 +64,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:id, :name, :image, :country, :spotify_url, :href, :uri)
+    params.require(:user).permit(:id, :name, :image, :country, :spotify_url, :href, :uri, :access_token, :refresh_token)
   end
 end
