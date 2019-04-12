@@ -25,8 +25,18 @@ class Api::V1::UsersController < ApplicationController
     user_response = RestClient.get("https://api.spotify.com/v1/me", header)
     user_params = JSON.parse(user_response.body)
     
-    #Create User
-    @user = User.find_or_create_by(name: user_params["display_name"], email: nil, image: user_params["images"][0]["url"], country: user_params["country"], birthdate: nil)
+    #Create User 
+    @user = User.find_or_create_by(
+      name: user_params["display_name"], 
+      spotify_url: user_params["external_urls"]["spotify"],
+      href: user_params["href"],
+      uri: user_params["uri"])
+      
+    image = user_params["images"][0] ? user_params["images"][0]["url"] : nil
+    country = user_params["country"] ? user_params["country"] : nil
+
+    #Update the user if they have image or country
+    @user.update(image: image, country: country)
 
     #Redirect to Front End app homepage
     redirect_to "http://localhost:3001/"
@@ -44,6 +54,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:id, :name, :email, :image, :country, :birthdate)
+    params.require(:user).permit(:id, :name, :image, :country, :spotify_url, :href, :uri)
   end
 end
