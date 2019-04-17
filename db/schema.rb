@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_172442) do
     t.string "spotify_url"
     t.string "href"
     t.string "uri"
+    t.string "spotify_id"
     t.string "access_token"
     t.string "refresh_token"
     t.datetime "created_at", null: false

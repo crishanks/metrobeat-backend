@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :spotify_url
       t.string :href 
       t.string :uri
+      t.string :spotify_id
       t.string :access_token
       t.string :refresh_token
       t.timestamps

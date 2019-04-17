@@ -10,7 +10,7 @@ class Api::V1::UsersController < ApplicationController
     # Request refresh and access tokens
     body = {
       grant_type: "authorization_code",
-      code: params[:code], #what is this?
+      code: params[:code],
       redirect_uri: 'http://localhost:3000/api/v1/user',
       client_id: Rails.application.credentials[Rails.env.to_sym][:spotify][:client_id],
       client_secret: Rails.application.credentials[Rails.env.to_sym][:spotify][:client_secret]
@@ -30,7 +30,8 @@ class Api::V1::UsersController < ApplicationController
       name: user_params["display_name"], 
       spotify_url: user_params["external_urls"]["spotify"],
       href: user_params["href"],
-      uri: user_params["uri"])
+      uri: user_params["uri"],
+      spotify_id: user_params["id"])
       
     image = user_params["images"][0] ? user_params["images"][0]["url"] : nil
     country = user_params["country"] ? user_params["country"] : nil
@@ -49,7 +50,7 @@ class Api::V1::UsersController < ApplicationController
     end
 
     #Redirect to Front End app homepage
-    redirect_to "http://localhost:3001/"
+    redirect_to "http://localhost:3001/songfinder"
   end
 
   def update
