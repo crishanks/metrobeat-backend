@@ -11,6 +11,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :access_token
       t.string :refresh_token
       t.boolean :has_metro_beat_playlist, :default => false
+      t.string :metro_beat_playlist_id
       t.timestamps
     end
   end

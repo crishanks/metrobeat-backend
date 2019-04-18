@@ -59,7 +59,9 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     @user = User.find_by(id: params[:id])
-    @user.update(has_metro_beat_playlist: true)
+    puts "metro_beat_playlist_id",  params[:metro_beat_playlist_id]
+    puts "params[:id]",  params[:id]
+    @user.update(has_metro_beat_playlist: true, metro_beat_playlist_id: params["metro_beat_playlist_id"])
   end
 
   def destroy
@@ -70,6 +72,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:id, :name, :image, :country, :spotify_url, :href, :uri, :spotify_id, :access_token, :refresh_token, :has_metro_beat_playlist)
+    params.require(:user).permit(:id, :name, :image, :country, :spotify_url, :href, :uri, :spotify_id, :access_token, :refresh_token, :has_metro_beat_playlist, :metro_beat_playlist_id)
   end
 end
