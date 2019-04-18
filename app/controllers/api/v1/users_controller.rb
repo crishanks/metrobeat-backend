@@ -6,6 +6,10 @@ class Api::V1::UsersController < ApplicationController
     render json: @users
   end
 
+  def show
+    @user = User.find_by(id: params[:id])
+  end
+
   def create
     # Request refresh and access tokens
     body = {
@@ -55,6 +59,7 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     @user = User.find_by(id: params[:id])
+    @user.update(has_metro_beat_playlist: true)
   end
 
   def destroy
@@ -65,6 +70,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:id, :name, :image, :country, :spotify_url, :href, :uri, :access_token, :refresh_token)
+    params.require(:user).permit(:id, :name, :image, :country, :spotify_url, :href, :uri, :spotify_id, :access_token, :refresh_token, :has_metro_beat_playlist)
   end
 end

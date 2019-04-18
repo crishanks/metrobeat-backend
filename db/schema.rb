@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_172442) do
     t.string "spotify_id"
     t.string "access_token"
     t.string "refresh_token"
+    t.boolean "has_metro_beat_playlist", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

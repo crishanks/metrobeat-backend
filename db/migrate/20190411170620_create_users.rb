@@ -10,6 +10,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :spotify_id
       t.string :access_token
       t.string :refresh_token
+      t.boolean :has_metro_beat_playlist, :default => false
       t.timestamps
     end
   end
